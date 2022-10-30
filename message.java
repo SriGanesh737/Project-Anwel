@@ -2,7 +2,7 @@ public class message {
     private String messageid;
     private int markAsRead=0;
     private String body;
-
+     //
     public message()
     {
 
