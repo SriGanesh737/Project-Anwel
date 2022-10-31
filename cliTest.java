@@ -17,7 +17,7 @@ public class cliTest{
             ZooManagement.storeemployees();
             //employee e2 = new manager("suresh", 1030, 70000);
             manager m1 = new manager();
-            m1.sendmessage(105, "demo message sent", "m-1");
+            m1.sendmessage(105, "m-1","demo message sent");
             ZooManagement.demofunc(105);
         }
         else if (key == 3)

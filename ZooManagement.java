@@ -93,6 +93,7 @@ public class ZooManagement {
     public static ArrayList<Animal> al=new ArrayList<>();
     public static ArrayList<employee> el=new ArrayList<>();
     public static ArrayList<sponcers> sl=new ArrayList<>();
+    public static ArrayList<message> ml=new ArrayList<>();
 
     public static void StoreAnimal()
     {
@@ -147,5 +148,9 @@ public class ZooManagement {
         }
     }
 
-    
+    public static void displayAllMessages()
+    {
+        
+    }
+
 }

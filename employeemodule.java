@@ -59,10 +59,10 @@ abstract class employee implements duties_and_salaries {
 
 class manager extends employee {
 
-public manager()
-{
+    public manager()
+    {
 
-}
+    }
     public manager(String name, int id, int salary) {
         super(name, id);
         super.salary = salary;
@@ -72,13 +72,14 @@ public manager()
 
     }
 
-    public void sendmessage(int id,String body,String msgid)
+    public void sendmessage(int recieversid, String msgid,String body)
     {
         //id is for whom we want to send
-        message m=new message(msgid, body);
+        message m = new message(msgid, getId(), body);
+        m.setReceiversId(recieversid);
         for(employee x: ZooManagement.el)
         {
-            if(x.getId()==id)
+            if(x.getId()==recieversid)
             {
                 caretaker y = (caretaker) x;
                 y.inbox.add(m);
@@ -115,6 +116,21 @@ class caretaker extends employee {
         }
     }
 
+    public void sendMessage(int receiversId,String msgId,String body)
+    {
+        message m = new message(msgId, getId(), body);
+        m.setReceiversId(receiversId);
+        for (employee x : ZooManagement.el) {
+            if (x.getId() == receiversId) {
+                doctor y = (doctor) x;
+                y.inbox.add(m);
+                System.out.println("Message Sent to doctor");
+            }
+        }
+
+    }
+
+    
     public void duty() {
 
     }
@@ -129,13 +145,15 @@ class doctor extends employee {
 
     ArrayList<message> inbox = new ArrayList<message>();
     ArrayList<String> patientList = new ArrayList<>();
-
+    private int CasesTaken=0;
 
     public doctor() {
+
     }
 
-    public doctor(String name, int id) {
+    public doctor(String name, int id,int salary) {
         super(name, id);
+        super.setSalary(salary);
     }
 
     public void duty() {
@@ -143,7 +161,8 @@ class doctor extends employee {
     }
 
     public void salary() {
-
+        setSalary(getSalary()+1000*CasesTaken);
+        System.out.println("Your salary is :" + getSalary());
     }
 }
 
@@ -189,7 +208,7 @@ class ZooGuide extends employee {
     //give bonus based on the ratings they got.
     ArrayList<Integer> ratings = new ArrayList<>();
     ArrayList<message> inbox = new ArrayList<message>();
-
+    private double avgrating;
 
     public ZooGuide(int baseSalary) {
         this.baseSalary = baseSalary;
@@ -200,6 +219,15 @@ class ZooGuide extends employee {
         this.baseSalary = baseSalary;
     }
 
+
+    public double getAvgrating() {
+        return avgrating;
+    }
+
+    public void setAvgrating(double avgrating) {
+        this.avgrating = avgrating;
+    }
+
     public int getBaseSalary() {
         return baseSalary;
     }
@@ -208,6 +236,27 @@ class ZooGuide extends employee {
         this.baseSalary = baseSalary;
     }
 
+
+    public void calculateAvgRating()
+    {
+        int total = 0;
+        int avg;
+        for (int i = 0; i < ratings.size(); i++) {
+            total += ratings.get(i);
+            avg = total / ratings.size();
+            System.out.println("The Average IS:" + avg);
+            setAvgrating(avg);
+        }
+    }
+
+
+    public void addRating(int rating)
+    {
+        ratings.add(rating);
+        System.out.println("Rating added succesfully");
+    }
+
+
     public void duty ()
     {
 
@@ -215,8 +264,11 @@ class ZooGuide extends employee {
 
     public void salary()
     {
-
+        double sal = baseSalary + avgrating * 5000;
+        super.setSalary((int) Math.round(sal));
     }
+
+
 }
 
 class sponcers {
