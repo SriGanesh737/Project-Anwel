@@ -14,17 +14,26 @@ class Animal {
 
     }
 
+    String healthissues[] = { "good", "leg injured", "skin infection", "heart problem", "not taking food", "fever" };
 
-    public Animal(String id, String name, String location, String healthStatus, int hungryPercentage, String breed,
+    public Animal(String id, String name, String location, int hungryPercentage, String breed,
             String Food) {
         Id = id;
         Name = name;
         this.location = location;
-        HealthStatus = healthStatus;
         HungryPercentage = hungryPercentage;
         Breed = breed;
         FoodType = Food;
+        this.set_healthstatus();
+        
     }
+
+    void set_healthstatus()
+    {
+        Random rand = new Random();
+        int temp = rand.nextInt(healthissues.length);
+        this.HealthStatus = healthissues[temp];
+     }
 
     public String getName() {
         return Name;
