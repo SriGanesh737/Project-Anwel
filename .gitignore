@@ -7,3 +7,15 @@ employeemodule.class
 manager.class
 message.class
 ZooManagement.class
+Authenticaation.class
+Administrator_Login.class
+BirdStatistics.class
+ChartedAccountant.class
+Customer_Login.class
+ZooGuide.class
+bird.class
+birdlifesanc.class
+birdvisitbyseason.class
+check.class
+doctor.class
+sponcers.class
