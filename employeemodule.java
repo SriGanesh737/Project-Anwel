@@ -46,7 +46,8 @@ abstract class employee implements duties_and_salaries {
         return id;
     }
 
-    public boolean login_for_employee(employee e) {
+    public boolean login_for_employee(employee e) 
+    {
         if (this.getName().compareTo(e.name) == 0 && this.id == e.id)
             return true;
         return false;
@@ -65,11 +66,13 @@ class manager extends employee {
         super.salary = salary;
     }
 
-    public void duty() {
-
+    public void duty() 
+    {
+          System.out.println("Zoo manager and head of Zoo");
     }
 
-    public void sendmessage(int recieversid, String msgid, String body) {
+    public void sendmessage(int recieversid, String msgid, String body) 
+    {
         // id is for whom we want to send
         message m = new message(msgid, getId(), body);
         m.setReceiversId(recieversid);
@@ -127,6 +130,7 @@ class caretaker extends employee {
     }
 
     public void salary() {
+        this.salary = 50000;
 
     }
 

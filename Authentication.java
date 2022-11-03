@@ -1,10 +1,11 @@
-import com.sun.source.tree.SwitchTree;
+
 
 import java.util.*;
 import  java.sql.*;
 import static java.lang.Integer.parseInt;
 
-abstract class database {
+abstract class database 
+{
     final static private String url="jdbc:mysql://localhost:3306/authentication";
     final static private String uname="root";
     final static private String pass="rabbit@1504";

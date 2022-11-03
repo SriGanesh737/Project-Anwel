@@ -1,5 +1,7 @@
 import java.util.*;
-public class cliTest{
+
+public class cliTest 
+{
     public static void main(String args[])
     {
         Scanner sin = new Scanner(System.in);
