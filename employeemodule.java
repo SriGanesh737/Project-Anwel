@@ -1,4 +1,5 @@
 import java.util.*;
+import java.sql.*;
 
 interface duties_and_salaries {
     void duty();
@@ -46,13 +47,6 @@ abstract class employee implements duties_and_salaries {
         return id;
     }
 
-    public boolean login_for_employee(employee e) 
-    {
-        if (this.getName().compareTo(e.name) == 0 && this.id == e.id)
-            return true;
-        return false;
-    }
-
 }
 
 class manager extends employee {
@@ -66,26 +60,37 @@ class manager extends employee {
         super.salary = salary;
     }
 
-    public void duty() 
+    public void duty()
     {
           System.out.println("Zoo manager and head of Zoo");
     }
 
-    public void sendmessage(int recieversid, String msgid, String body) 
+    public void sendmessage(int recieversid, String msgid, String body)
     {
         // id is for whom we want to send
         message m = new message(msgid, getId(), body);
         m.setReceiversId(recieversid);
-        for (employee x : ZooManagement.el) {
-            if (x.getId() == recieversid) {
-                caretaker y = (caretaker) x;
-                y.inbox.add(m);
-                System.out.println("Message Sent");
-            }
-        }
+        // for (employee x : ZooManagement.el) {
+        //     if (x.getId() == recieversid) {
+        //         if(x instanceof caretaker)
+        //         {
+        //             caretaker y = (caretaker) x;
+        //             y.inbox.add(m);
+        //         }
+        //         else if (x instanceof doctor)
+        //         {
+
+        //         }
+
+        //         m.storeMessage(); // store message in the database
+        //         ZooManagement.ml.add(m); // store all the messages
+        //         System.out.println("Message Sent");
+        //     }
+        // }
+      m.storeMessage();
     }
 
-    public void salary() 
+    public void salary()
     {
         this.salary = 100000;
 
@@ -102,27 +107,34 @@ class caretaker extends employee {
         super.setId(id);
     }
 
-    public void showInbox() {
-        System.out.println("The messages in the inbox are :");
-        for (message x : inbox) {
-            if (x.getMarkAsRead() == 0) {
-                System.out.println(x.getBody());
-                x.setMarkAsRead(1);
-            }
-        }
-    }
+    //not required since we have a better function in message class
+    // public void showInbox() {
+    //     System.out.println("The messages in the inbox are :");
+    //     for (message x : inbox) {
+    //         if (x.getMarkAsRead() == 0) {
+    //             System.out.println(x.getBody());
+    //             x.setMarkAsRead(1);
+    //             x.markRead(); //update in database
+    //         }
+    //     }
+    // }
 
     public void sendMessage(int receiversId, String msgId, String body) {
+        // System.out.println("here2.1");
         message m = new message(msgId, getId(), body);
+        // System.out.println("here2.2");
         m.setReceiversId(receiversId);
-        for (employee x : ZooManagement.el) {
-            if (x.getId() == receiversId) {
-                doctor y = (doctor) x;
-                y.inbox.add(m);
-                System.out.println("Message Sent to doctor");
-            }
-        }
-
+        // System.out.println("here2.3");
+        // for (employee x : ZooManagement.el) {
+        //     if (x.getId() == receiversId) {
+        //         doctor y = (doctor) x;
+        //         y.inbox.add(m);
+        //         m.storeMessage(); //store message in the database
+        //         ZooManagement.ml.add(m); //store all the messages
+        //         System.out.println("Message Sent to doctor");
+        //     }
+        // }
+        m.storeMessage();
     }
 
     public void duty() {
@@ -255,7 +267,7 @@ class ZooGuide extends employee {
 
 
 
-class sponcers {
+class sponcers extends Database{
 
     String Name;
     int donatedAmount;
@@ -277,17 +289,41 @@ class sponcers {
         Name = name;
     }
 
-    public int getDonatedAmount() 
+    public int getDonatedAmount()
     {
         return donatedAmount;
     }
 
     public void setDonatedAmount(int donatedAmount) {
         this.donatedAmount = donatedAmount;
-       
-        
     }
-    
+
+    public void storeSponcer()
+    {
+        Database db = new Database();
+
+        try {
+            db.Establish();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        db.setQuery(String.format(" "));
+
+        try {
+            db.Update();
+        } catch (SQLException e) {
+            System.out.println("here bro while adding message to database error occurred!!+_+ O_O");
+            e.printStackTrace();
+        }
+
+        try {
+            db.Close(db.getSt(), db.getCon());
+        } catch (SQLException e) {
+            System.out.println("Error in closing ¬_¬");
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public String toString() {
@@ -299,6 +335,20 @@ class sponcers {
 public class employeemodule {
 
     public static void main(String args[]) {
+        doctor doc1 = new doctor("ram", 108, 200000);
+        caretaker ct1 = new caretaker("raj", 106);
+        manager m1 = new manager("hari", 101, 300000);
 
+        // ZooManagement.el.add(m1);
+        // ZooManagement.el.add(doc1);
+        // ZooManagement.el.add(ct1);
+        new message().showUnreadMessages(108);
+
+        m1.sendmessage(106, "c-150", "Assemble here at hall");
+        ct1.sendMessage(108, "S-200", "A unread message for the second time ");
+        //ZooManagement.displayAllMessages();
+        System.out.println("here");
+        m1.sendmessage(106, "c-157", "Assemble here at room");
+        new message().showUnreadMessages(108);
     }
 }

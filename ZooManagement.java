@@ -40,7 +40,7 @@ class Animal {
         return FoodType;
     }
 
-    public void setFoodType(String foodType) 
+    public void setFoodType(String foodType)
     {
         FoodType = foodType;
     }
@@ -85,7 +85,7 @@ class Animal {
         return Breed;
     }
 
-    public void setBreed(String breed) 
+    public void setBreed(String breed)
     {
         Breed = breed;
     }
@@ -135,28 +135,23 @@ public class ZooManagement {
     }
 
     public static void storeemployees() {
-        // el = new ArrayList<>();
 
         // employee e1 = new manager("ram", 100, 500000);
-        // employee e2 = new manager("sam", 103, 200000);
         // employee e3 = new caretaker("kam", 104);
-        // employee e4 = new caretaker("fam", 105);
-
         // el.add(e1);
-        // el.add(e2);
         // el.add(e3);
-        // el.add(e4);
+
+        /* Manager- name,id,salary
+         * Caretaker- name,id,salary
+         * Doctor- name,id,basesalary(salary),casesTaken
+         * Charted Accountant- name,id,salary,static(CurrentFinancialPosition)
+         * ZooGuide-name,id,salary(basesalary),avgrating
+         * sponcers- name,donatedAmount
+         * Messages-SendersId,ReceiversId,messageId,MarkasRead,Body
+         */
+
     }
 
-    public static void demofunc(int id) {
-
-        for (employee x : el) {
-            if (x.getId() == id) {
-                caretaker y = (caretaker) x;
-                y.showInbox();
-            }
-        }
-    }
 
     public static void displaySponcers() {
         System.out.println("A very special thanks to all our sponcers !!!\n");
@@ -165,8 +160,13 @@ public class ZooManagement {
         }
     }
 
+    //This method is only for the highest authority for checking all the messages sent from anyone to anyone.
     public static void displayAllMessages() {
-
+        System.out.println("The messages are :\n");
+        for(message m: ml)
+        {
+             System.out.println(m);
+        }
     }
 
 }
