@@ -2,10 +2,10 @@ import java.sql.*;
 
 
 class Database{
-    final static String Database_Name="javalab";
+    final static String Database_Name="java";
     final static private String url="jdbc:mysql://localhost:3306/"+Database_Name;
     final static private String uname="root";
-    final static private String pass="coder@737";
+    final static private String pass="likith@2003";
     private  String query;
     private Statement st;
     private PreparedStatement pst;
