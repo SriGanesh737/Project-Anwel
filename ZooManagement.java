@@ -16,8 +16,7 @@ class Animal {
 
     }
 
-    String healthissues[] = { "good", "leg injured", "skin infection", "heart problem", "not taking food", "fever",
-            "moody" };
+    String healthissues[] = { "good", "leg injured", "skin infection", "heart problem", "not taking food", "fever","chronic disease","moody" };
 
     public Animal(String id, String name, String location, String breed, String Food) {
         Id = id;
@@ -179,6 +178,7 @@ class Animal {
                 System.out.println("LOCATION:" + rs.getString(3));
                 System.out.println("BREED:" + rs.getString(6));
                 System.out.println("FOOD:" + rs.getString(7));
+                System.out.println("COUNT :"+rs.getInt(8));
                 System.out.println("***************************************************");
             }
         } catch (Exception e) {
@@ -202,6 +202,7 @@ class Animal {
                 System.out.println("LOCATION:" + rs.getString(3));
                 System.out.println("BREED:" + rs.getString(6));
                 System.out.println("FOOD:" + rs.getString(7));
+                System.out.println("COUNT :"+rs.getInt(8));
                 System.out.println("***************************************************");
             }
         }
@@ -211,27 +212,40 @@ class Animal {
         }
             
      }
-    public void find_location_using_animalName() {
 
-        System.out.println("Enter the name of animal you want to find");
-        Scanner sin = new Scanner(System.in);
-        String uname = sin.nextLine();
-        Database db=new Database();
-        try {
-            db.Establish();
-            db.setQuery(String.format("SELECT location  FROM animals WHERE name=\"%s\"",uname));
-            ResultSet rs = db.Execute();
-             while(rs.next()) 
-                System.out.println("Location :"+rs.getString(1));
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-            
+     public void find_location_using_animalName() {
 
+         System.out.println("Enter the name of animal you want to find");
+         Scanner sin = new Scanner(System.in);
+         String uname = sin.nextLine();
+         Database db = new Database();
+         try {
+             db.Establish();
+             db.setQuery(String.format("SELECT location  FROM animals WHERE name=\"%s\"", uname));
+             ResultSet rs = db.Execute();
+             while (rs.next())
+                 System.out.println("Location :" + rs.getString(1));
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
 
+     }
+
+     public void find_type_based_on_location()
+     {
+         System.out.println("Enetr the location you are currently in (A OR B):");
+         Scanner sin = new Scanner(System.in);
+         String ch = sin.nextLine();
+         System.out.println("***************************************************");
+             if(ch.compareTo("A")==0)
+             System.out.println("Be cautious as you are sorrounded by wild animals");
+            else
+            {
+                System.out.println("You can feed animals in  this location as these are friendly to you");
+            }
+            System.out.println("***************************************************");
     }
+     
 
     public void insert_animal(int i, String uname, String uhealth, String ulocation, int perc, String ubreed,
             String ufood) {
@@ -298,13 +312,14 @@ public class ZooManagement {
     // }
     public static void main(String args[]) {
         Animal an = new Animal();
-        System.out.println("Enter 1 to insert Animal");
-        System.out.println("Enter 2 to feed animal by id bnased on hungry percentage");
+        System.out.println("Enter 1 to insert an Animal");
+        System.out.println("Enter 2 to feed animal by id based on hungry percentage");
         System.out.println("Enter 3 to view the currently available animals");
         System.out.println("Enter 4 to  update details of animal");
         System.out.println("Enter 5 to  find location of animal");
         System.out.println("Enter 6 to  find details of an animal");
         System.out.println("Enter 7 to find details of all animals");
+        System.out.println("Enter 8 to find if you can feed animals");
 
         System.out.println();
         int choice = 1;
@@ -348,6 +363,13 @@ public class ZooManagement {
                 case 7: {
                     System.out.println("***************************************************");
                     an.find_details_of_all_animals();
+                    System.out.println("***************************************************");
+                }
+                    break;
+                case 8:
+                {
+                    System.out.println("***************************************************");
+                    an.find_type_based_on_location();
                     System.out.println("***************************************************");
                 }
                     break;
