@@ -90,10 +90,28 @@ public class Food {
             return false;
 
     }
+    public void get_details_of_food()
+    {
+        System.out.println("Food type of different animals:");
+        Database db = new Database();
+        try{
+            db.Establish();
+            db.setQuery(String.format("SELECT type FROM food"));
+            ResultSet rs=db.Execute();
+            while(rs.next())
+            System.out.println(rs.getString(1));
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String args[])
     {
-
+        Food f = new Food();
+        f.get_details_of_food();
     }
 
 }

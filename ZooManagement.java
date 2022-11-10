@@ -120,6 +120,8 @@ class Animal {
 
     }
 
+   
+
     public void update_animal_details() {
         Scanner sin = new Scanner(System.in);
         System.out.println("Enter the id of animal you want update in database");
@@ -264,6 +266,64 @@ class Animal {
 
     }
 
+    public void get_details_based_on_food(String str)
+    {
+        Database db = new Database();
+        try {
+            db.Establish();
+            db.setQuery(String.format("SELECT * FROM animals WHERE food_type=\"%s\" ", str));
+            ResultSet rs = db.Execute();
+            System.out.println("The details of animals are:");
+            while (rs.next()) {
+                System.out.println("***************************************************");
+                System.out.println("ID:" + rs.getString(1));
+                System.out.println("NAME:" + rs.getString(2));
+                System.out.println("LOCATION:" + rs.getString(3));
+                System.out.println("BREED:" + rs.getString(6));
+                // System.out.println("FOOD:" + rs.getString(7));
+                System.out.println("COUNT :" + rs.getInt(8));
+                System.out.println("***************************************************");
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+    }
+    public void search(String str1)
+    {
+        Database db = new Database();
+        try {
+            db.Establish();
+            db.setQuery(String.format("SELECT %s FROM animals", str1));
+            ResultSet rs = db.Execute();
+            while (rs.next())
+                System.out.println(rs.getString(1));
+            System.out.println("These are details available for your search type "+str1);
+            Scanner sin = new Scanner(System.in);
+            String str2 = sin.nextLine();
+            db.setQuery(String.format("SELECT * FROM animals where %s=\"%s\"",str1,str2));
+            rs = db.Execute();
+            while (rs.next())
+            {
+                System.out.println("***************************************************");
+                System.out.println("ID:" + rs.getString(1));
+                System.out.println("NAME:" + rs.getString(2));
+                System.out.println("LOCATION:" + rs.getString(3));
+                System.out.println("BREED:" + rs.getString(6));
+                System.out.println("FOOD:" + rs.getString(7));
+                System.out.println("COUNT :"+rs.getInt(8));
+                System.out.println("***************************************************");
+            }
+
+            db.Close(db.getSt(), db.getCon());
+            System.out.println("The query is successfully updated");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  
+    }
+
     public String toString() {
 
         return String.format(
@@ -309,9 +369,86 @@ public class ZooManagement {
     // for (message m : ml) {
     // System.out.println(m);
     // }
+ //This method is only for the highest authority for checking all the messages sent from anyone to anyone.
+//  public static void displayAllMessages() {
+//     System.out.println("The messages are :\n");
+//     for (message m : ml) {
+//         System.out.println(m);
+//     }
+// }
+
+// public static void update_employee_detail(String table_name,int empid,String column_name,String newVal)
+// {
+//     String type, attr, val;int id;
+//     type = table_name;
+//     attr = column_name;
+//     val = newVal;
+//     id = empid;
+//     int intval=0;
+//     double dblval=3.7;
+//      String[] intList={"salary","id","casesTaken","currentFinancialPosition","donatedAmount"};
+
+//     int qtype = 1;
+//   for(int i=0;i<intList.length;i++)
+//   {
+//       if (attr.compareTo(intList[i]) == 0)
+//       {
+//           qtype = 2;
+//           intval = Integer.parseInt(newVal);
+//       }
+
+//   }
+
+//   if(attr.compareTo("Average_Rating")==0)
+//   {
+//       qtype = 3;
+//       dblval = Double.parseDouble(newVal);
+//   }
+
+
+
+//     Database db = new Database();
+
+//     try {
+//         db.Establish();
+//     } catch (Exception e1) {
+//         // TODO Auto-generated catch block
+//         e1.printStackTrace();
+//     }
+
+//     // need to test this line of code .
+//    if(qtype==1)
+//     db.setQuery(String.format("update %s set %s=\"%s\" where id= %d",type,attr,newVal,id));
+//     else if (qtype == 2)
+//     db.setQuery(String.format("update %s set %s=%d where id= %d", type, attr, intval, id));
+//     else
+//         db.setQuery(String.format("update %s set %s=%f where id= %d", type, attr, dblval, id));
+//     try {
+//         int rs = db.Update();
+//         System.out.println(rs);
+//     } catch (SQLException e) {
+
+//         System.out.println("while updating salary...");
+//         e.printStackTrace();
+//     }
+
+//     try {
+//         db.Close(db.getSt(), db.getCon());
+//     } catch (SQLException e) {
+//         System.out.println("Error in closing ¬_¬");
+//         e.printStackTrace();
+//     }
+
+// }
+    
+    
+    
+    
+    
     // }
     public static void main(String args[]) {
         Animal an = new Animal();
+        Food f = new Food();
         System.out.println("Enter 1 to insert an Animal");
         System.out.println("Enter 2 to feed animal by id based on hungry percentage");
         System.out.println("Enter 3 to view the currently available animals");
@@ -320,12 +457,13 @@ public class ZooManagement {
         System.out.println("Enter 6 to  find details of an animal");
         System.out.println("Enter 7 to find details of all animals");
         System.out.println("Enter 8 to find if you can feed animals");
+        System.out.println("Enter 9 to get details of all animals based on food type");
+        System.out.println("Enter 10 to find details of animals based on your choice");
 
         System.out.println();
         int choice = 1;
         Scanner sin = new Scanner(System.in);
-        while (choice != 0) 
-        {
+        while (choice != 0) {
             System.out.print("Enter your choice:");
             choice = sin.nextInt();
             System.out.println();
@@ -366,13 +504,28 @@ public class ZooManagement {
                     System.out.println("***************************************************");
                 }
                     break;
-                case 8:
-                {
+                case 8: {
                     System.out.println("***************************************************");
                     an.find_type_based_on_location();
                     System.out.println("***************************************************");
                 }
                     break;
+                case 9: {
+                    f.get_details_of_food();
+                    System.out.println("Enter food type to search animals animals based on the food");
+                    sin.nextLine();
+                    String st = sin.nextLine();
+                    an.get_details_based_on_food(st);
+                }
+                case 10: {
+                    System.out.println("These are feilds available for animals ");
+                    System.out.println("ID\nname\nlocation\nbreed\nfood_type\n");
+                    sin.nextLine();
+                    System.out.println("enter the string to search on that basis:");
+                    String str = sin.nextLine();
+                    an.search(str);
+
+                }
             }
             System.out.print("Enter specified number to know more information or enter 0 to exit:");
             choice = sin.nextInt();
