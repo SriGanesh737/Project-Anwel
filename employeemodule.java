@@ -2,16 +2,15 @@ import java.util.*;
 import java.sql.*;
 
 interface duties_and_salaries {
-    void duty();
 
     void salary();
 }
 
 abstract class employee implements duties_and_salaries {
 
-    String name;
-    int salary=0;
-    int id;
+    private String name;
+    private int salary=0;
+    private int id;
 
     public employee() {
 
@@ -76,7 +75,6 @@ abstract class employee implements duties_and_salaries {
         try {
             db.Establish();
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
@@ -126,35 +124,53 @@ abstract class employee implements duties_and_salaries {
         }
     }
 
-    // public void update_salary_IN_Database() {
-    //     Database db = new Database();
+    public void update_salary_IN_Database() {
 
-    //     try {
-    //         db.Establish();
-    //     } catch (Exception e1) {
-    //         // TODO Auto-generated catch block
-    //         e1.printStackTrace();
-    //     }
+        String s = "employee";
 
-    //     // need to test this line of code .
-    //     db.setQuery(String.format("update employee set salary=%d where id= %d", salary, id));
 
-    //     try {
-    //         int rs = db.Update();
-    //         System.out.println(rs);
-    //     } catch (SQLException e) {
+        if (this instanceof manager)
+            s = "manager";
+        else if (this instanceof caretaker)
+            s = "caretaker";
+        else if (this instanceof doctor)
+            s = "doctor";
+        else if (this instanceof ChartedAccountant)
+            s = "chartedaccountant";
+        else if (this instanceof ZooGuide)
+            s = "zooguide";
 
-    //         System.out.println("while updating salary...");
-    //         e.printStackTrace();
-    //     }
+        Database db = new Database();
 
-    //     try {
-    //         db.Close(db.getSt(), db.getCon());
-    //     } catch (SQLException e) {
-    //         System.out.println("Error in closing ¬_¬");
-    //         e.printStackTrace();
-    //     }
-    // }
+        try {
+            db.Establish();
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+        // need to test this line of code .
+
+
+
+        db.setQuery(String.format("update %s set salary=%d where id= %d",s, salary, id));
+
+        try {
+            int rs = db.Update();
+            System.out.println(rs);
+        } catch (SQLException e) {
+
+            System.out.println("while updating salary...");
+            e.printStackTrace();
+        }
+
+        try {
+            db.Close(db.getSt(), db.getCon());
+        } catch (SQLException e) {
+            System.out.println("Error in closing ¬_¬");
+            e.printStackTrace();
+        }
+    }
 
 }
 
@@ -166,40 +182,19 @@ class manager extends employee {
 
     public manager(String name, int id, int salary) {
         super(name, id);
-        super.salary = salary;
-    }
-
-    public void duty() {
-        System.out.println("Zoo manager and head of Zoo");
+    super.setSalary(salary);
     }
 
     public void sendmessage(int recieversid, String msgid, String body) {
         // id is for whom we want to send
         message m = new message(msgid, getId(), body);
         m.setReceiversId(recieversid);
-        // for (employee x : ZooManagement.el) {
-        // if (x.getId() == recieversid) {
-        // if(x instanceof caretaker)
-        // {
-        // caretaker y = (caretaker) x;
-        // y.inbox.add(m);
-        // }
-        // else if (x instanceof doctor)
-        // {
-
-        // }
-
-        // m.storeMessage(); // store message in the database
-        // ZooManagement.ml.add(m); // store all the messages
-        // System.out.println("Message Sent");
-        // }
-        // }
         m.storeMessage();
     }
 
     public void salary() {
-        this.salary = 100000;
-
+        super.setSalary(100000);
+        this.update_salary_IN_Database();
     }
 
 }
@@ -213,43 +208,18 @@ class caretaker extends employee {
         super.setId(id);
     }
 
-    // not required since we have a better function in message class
-    // public void showInbox() {
-    // System.out.println("The messages in the inbox are :");
-    // for (message x : inbox) {
-    // if (x.getMarkAsRead() == 0) {
-    // System.out.println(x.getBody());
-    // x.setMarkAsRead(1);
-    // x.markRead(); //update in database
-    // }
-    // }
-    // }
 
     public void sendMessage(int receiversId, String msgId, String body) {
-        // System.out.println("here2.1");
+
         message m = new message(msgId, getId(), body);
-        // System.out.println("here2.2");
         m.setReceiversId(receiversId);
-        // System.out.println("here2.3");
-        // for (employee x : ZooManagement.el) {
-        // if (x.getId() == receiversId) {
-        // doctor y = (doctor) x;
-        // y.inbox.add(m);
-        // m.storeMessage(); //store message in the database
-        // ZooManagement.ml.add(m); //store all the messages
-        // System.out.println("Message Sent to doctor");
-        // }
-        // }
         m.storeMessage();
     }
 
-    public void duty() {
-
-    }
 
     public void salary() {
-        this.salary = 50000;
-
+        super.setSalary(50000);
+        this.update_salary_IN_Database();
     }
 
 }
@@ -258,7 +228,7 @@ class doctor extends employee {
 
     ArrayList<message> inbox = new ArrayList<message>();
     ArrayList<String> patientList = new ArrayList<>();
-     int CasesTaken = 0;
+     int CasesTaken = 3;
 
     public doctor() {
 
@@ -269,13 +239,11 @@ class doctor extends employee {
         super.setSalary(salary);
     }
 
-    public void duty() {
-
-    }
 
     public void salary() {
         setSalary(getSalary() + 1000 * CasesTaken);
         System.out.println("Your salary is :" + getSalary());
+        this.update_salary_IN_Database();
     }
 }
 
@@ -290,17 +258,15 @@ class ChartedAccountant extends employee {
         super(name, id);
     }
 
-    public void duty() {
-
-    }
 
     public void salary() {
-
+        this.update_salary_IN_Database();
     }
 
-    public void addsponcer(String Name, int donatedAmount) {
-        sponcers s = new sponcers(Name, donatedAmount);
+    public void addsponcer(String Name, int donatedAmount,int id) {
+        sponcers s = new sponcers(Name, donatedAmount,id);
         currentFinancialPosition += donatedAmount;
+        s.storeSponcer();
         // need to add in transaction log if we maintain one
         ZooManagement.sl.add(s);
     }
@@ -360,13 +326,11 @@ class ZooGuide extends employee {
         System.out.println("Rating added succesfully");
     }
 
-    public void duty() {
-
-    }
 
     public void salary() {
         double sal = baseSalary + avgrating * 5000;
         super.setSalary((int) Math.round(sal));
+        this.update_salary_IN_Database();
     }
 
 }
@@ -375,14 +339,24 @@ class sponcers extends Database {
 
     String Name;
     int donatedAmount;
+    int id;
 
     public sponcers() {
 
     }
 
-    public sponcers(String name, int donatedAmount) {
+    public sponcers(String name, int donatedAmount, int id) {
         Name = name;
         this.donatedAmount = donatedAmount;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -410,7 +384,7 @@ class sponcers extends Database {
             e1.printStackTrace();
         }
 
-        db.setQuery(String.format(" "));
+        db.setQuery(String.format("insert into sponcers values(%d,\"%s\",%d)", id, Name, donatedAmount));
 
         try {
             db.Update();
@@ -434,11 +408,12 @@ class sponcers extends Database {
 
 }
 
+
 public  class employeemodule {
 
     public static void main(String args[]) {
 
-        employee doc1 = new doctor("ram", 108, 200000);
+        employee doc1 = new doctor("vikram", 508, 1000);
         employee ct1 = new caretaker("raj", 106);
         employee m1 = new manager("hari", 101, 300000);
         employee ca1 = new ChartedAccountant("Ramesh", 333);
@@ -453,15 +428,25 @@ public  class employeemodule {
         // m1.sendmessage(106, "c-157", "Assemble here at room");
         // new message().showUnreadMessages(108);
 
-        doc1.addEmployee();
+        // doc1.addEmployee();
+        // doc1.salary();
+        // doc1.salary();
 
-        ct1.addEmployee();
+        // ct1.addEmployee();
 
-        m1.addEmployee();
+        // m1.addEmployee();
 
-        ca1.addEmployee();
+        // ca1.addEmployee();
 
-        zg1.addEmployee();
+        // zg1.addEmployee();
 
+        // new ChartedAccountant().addsponcer("gokul", 300000, 980);
+        // new ChartedAccountant().addsponcer("rishi", 70000, 549);
+
+        // ZooManagement.update_employee_detail("doctor", 508, "name", "vikram");
+        // ZooManagement.update_employee_detail("doctor", 508, "salary", "667744");
+        // ZooManagement.update_employee_detail("zooguide", 205, "Average_Rating", "4.7");
+        ZooManagement.update_employee_detail("zooguide", 205, "salary", "50000");
+         zg1.salary();
     }
 }

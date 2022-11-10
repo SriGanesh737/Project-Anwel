@@ -163,10 +163,73 @@ public class ZooManagement {
     //This method is only for the highest authority for checking all the messages sent from anyone to anyone.
     public static void displayAllMessages() {
         System.out.println("The messages are :\n");
-        for(message m: ml)
-        {
-             System.out.println(m);
+        for (message m : ml) {
+            System.out.println(m);
         }
+    }
+
+    public static void update_employee_detail(String table_name,int empid,String column_name,String newVal)
+    {
+        String type, attr, val;int id;
+        type = table_name;
+        attr = column_name;
+        val = newVal;
+        id = empid;
+        int intval=0;
+        double dblval=3.7;
+         String[] intList={"salary","id","casesTaken","currentFinancialPosition","donatedAmount"};
+
+        int qtype = 1;
+      for(int i=0;i<intList.length;i++)
+      {
+          if (attr.compareTo(intList[i]) == 0)
+          {
+              qtype = 2;
+              intval = Integer.parseInt(newVal);
+          }
+
+      }
+
+      if(attr.compareTo("Average_Rating")==0)
+      {
+          qtype = 3;
+          dblval = Double.parseDouble(newVal);
+      }
+
+
+
+        Database db = new Database();
+
+        try {
+            db.Establish();
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+        // need to test this line of code .
+       if(qtype==1)
+        db.setQuery(String.format("update %s set %s=\"%s\" where id= %d",type,attr,newVal,id));
+        else if (qtype == 2)
+        db.setQuery(String.format("update %s set %s=%d where id= %d", type, attr, intval, id));
+        else
+            db.setQuery(String.format("update %s set %s=%f where id= %d", type, attr, dblval, id));
+        try {
+            int rs = db.Update();
+            System.out.println(rs);
+        } catch (SQLException e) {
+
+            System.out.println("while updating salary...");
+            e.printStackTrace();
+        }
+
+        try {
+            db.Close(db.getSt(), db.getCon());
+        } catch (SQLException e) {
+            System.out.println("Error in closing ¬_¬");
+            e.printStackTrace();
+        }
+
     }
 
 }
