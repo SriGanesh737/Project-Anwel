@@ -1,8 +1,19 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 public class Food {
     private String type;
     private int quantity;
+    private float cost;
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
 
     public Food() {
     }
@@ -23,45 +34,66 @@ public class Food {
         this.quantity = quantity;
     }
 
-    public void consumed_food(int taken, String type) {
-        Iterator<Food> iter = ZooManagement.fl.iterator();
-        while (iter.hasNext()) {
-            Food fd = iter.next();
-            // food quantity must not be neagative
-            if (fd.getType().compareTo(type) == 0) {
-                fd.setQuantity(fd.getQuantity() - taken);
-            }
-
+    public static void consumed_food(String type) {
+        Database db = new Database();
+        
+        try {
+            db.Establish();
+        db.setQuery(String.format("UPDATE food set quantity=quantity-%d where type=\"%s\"",10,type));
+            db.Update();
+            db.Close(db.getSt(), db.getCon());
+        } catch (Exception e) {
+            
+            e.printStackTrace();
         }
 
     }
 
-    public void add_food(int given, String type) {
-        Iterator<Food> iter = ZooManagement.fl.iterator();
-        while (iter.hasNext()) {
-            Food fd = iter.next();
-            if (fd.getType().compareTo(type) == 0) {
-                fd.setQuantity(fd.getQuantity() + given);
-            }
-
-        }
-
-    }
-
-    public boolean availability(String type) 
+    public static void add_food(String type) 
     {
-        Iterator<Food> iter = ZooManagement.fl.iterator();
-        while (iter.hasNext()) 
-         {
-            Food fd = iter.next();
-            if (fd.getType().compareTo(type) == 0) 
-            {
-                if (fd.getQuantity() > 10)
-                    return true;
-            }
-
+        Database db = new Database();
+       
+        try {
+            db.Establish();
+            db.setQuery(String.format("UPDATE food set quantity=quantity+10 where type=\"%s\"", type));
+            db.Execute();
+            db.Close(db.getSt(), db.getCon());
+        } catch (Exception e) {
+            
+            e.printStackTrace();
         }
-        return false;
+        
+      
+    }
+
+    public static boolean availability(String ftype) 
+    {
+        int test = 0;
+        System.out.println(ftype);
+        Database db = new Database();
+        ResultSet rs;
+        try {
+            db.Establish();
+            // db.getCon();
+            db.setQuery(String.format("SELECT quantity from food where type=\"%s\"", ftype));
+            rs = db.Execute();
+            System.out.println(test);
+            while (rs.next())
+                test = rs.getInt(1);
+            System.out.println(test);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (test > 50)
+            return true;
+        else
+            return false;
+
+    }
+
+    public static void main(String args[])
+    {
+
     }
 
 }

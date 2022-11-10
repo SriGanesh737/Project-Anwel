@@ -10,7 +10,7 @@ public class cliTest
         if (key == 1)
         {
             System.out.println("This is function-1");
-            ZooManagement.StoreAnimal();
+            // ZooManagement.StoreAnimal();
              ZooManagement.PrintAllAnimalDetails();
         }
 //        else if (key == 2)
