@@ -212,7 +212,7 @@ class Animal {
         {
             e.printStackTrace();
         }
-            
+
      }
 
      public void find_location_using_animalName() {
@@ -247,7 +247,7 @@ class Animal {
             }
             System.out.println("***************************************************");
     }
-     
+
 
     public void insert_animal(int i, String uname, String uhealth, String ulocation, int perc, String ubreed,
             String ufood) {
@@ -463,7 +463,8 @@ public class ZooManagement {
         System.out.println();
         int choice = 1;
         Scanner sin = new Scanner(System.in);
-        while (choice != 0) {
+        while (choice != 0)
+        {
             System.out.print("Enter your choice:");
             choice = sin.nextInt();
             System.out.println();
