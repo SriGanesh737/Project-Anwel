@@ -1,0 +1,39 @@
+"birdId","birdbreed","birdgender","birddob","typeof","birdloc","count"
+"CGS6789","Common Greenshank","Male","2022-02-23","Scolopacidae","WOB-I",48.0
+"CMNT123","Common teal","Female","2020-05-26","Anatidae","SBS",23.0
+"CRM1266","Cormorants","Female","2020-12-25","Phalacrocoracidae","BIRDS 360",13.0
+"CRM5577","Cormorants","Female","2018-09-28","Phalacrocoracidae","WOB-II",13.0
+"DCK1209","Ducks","Male","2020-08-03","Anatidae","BIRDS 360",23.0
+"DCK1211","Ducks","Female","2021-02-02","Anatidae","WOB-I",23.0
+"DCRN333","Demoiselle Cranes","Female","2022-03-29","Gruidae","BIRDS 360",65.0
+"DRTR145","Darter","Male","2020-08-25","Anhingidae","SBS",42.0
+"DRTR878","Darter","Female","2019-07-23","Anhingidae","BIRDS 360",42.0
+"EAG0901","Eagles","Male","2019-01-02","Accipitridae","WOB-I",85.0
+"EAG1112","Eagles","Male","2021-11-11","Accipitridae","NSBS",85.0
+"FLMG354","Flamingo","Male","2021-12-29","Phoenicopteridae","WOB-I",30.0
+"GDW2211","Gadwall","Male","2021-12-30","Anatidae","BIRDS 360",23.0
+"GDW5656","Gadwall","Female","2022-01-05","Anatidae","WOB-II",23.0
+"GEES6565","Geese","Male","2022-03-01","Anatidae","NSBS",23.0
+"GEES666","Geese","Female","2021-05-13","Anatidae","WOB-I",23.0
+"GSP1212","Green Sandpiper","Female","2022-04-20","Scolopacidae","BIRDS 360",48.0
+"GWPL111","Great white pelican","Female","2020-12-19","Pelecanidae","BIRDS 360",53.0
+"GWPL564","Great white pelican","Male","2019-12-30","Pelecanidae","NSBS",53.0
+"HRN2200","Herons","Female","2022-05-11","Ardeidae","NSBS",57.0
+"HRN2225","Herons","Male","2019-01-02","Ardeidae","WOB-II",57.0
+"HRN2325","Herons","Male","2020-02-19","Ardeidae","BIRDS 360",57.0
+"NSHL222","Northern Shoveler","Male","2020-06-11","Anatidae","WOB-II",23.0
+"NSHL900","Northern Shoveler","Male","2022-03-19","Anatidae","SBS",23.0
+"RFF4323","Ruff","Female","2021-08-15","Scolopacidae","SBS",48.0
+"RFF4444","Ruff","Male","2020-02-15","Scolopacidae","BIRDS 360",48.0
+"RSYP555","Rosy pelican","Female","2020-12-31","Pelecanidae","SBS",53.0
+"SBP3909","Spot-billed pelican","Male","2021-12-30","Pelecanidae","BIRDS 360",53.0
+"SBP5550","Spot-billed pelican","Male","2022-04-20","Pelecanidae","SBS",53.0
+"SCRN200","Sarus Cranes","Male","2020-04-22","Gruidae","BIRDS 360",65.0
+"STRK221","Storks","Female","2020-12-10","Ciconiidae","NSBS",55.0
+"STRK232","Storks","Female","2022-05-17","Ciconiidae","BIRDS 360",55.0
+"WSB1199","White Spoonbill","Female","2021-10-10","Threskiornithidae","BIRDS 360",33.0
+"WSB4544","White Spoonbill","Female","2021-11-11","Threskiornithidae","NSBS",33.0
+"WSP3309","Wood Sandpipper","Male","2022-01-11","Scolopacidae","BIRDS 360",48.0
+"WSP8732","Wood Sandpipper","Male","2021-06-08","Scolopacidae","WOB-II",48.0
+"YWTL","Yellow Wagtail","Male","2020-10-28","Motacillidae","WOB-II",35.0
+"YWTL899","Yellow Wagtail","Female","2022-05-20","Motacillidae","SBS",35.0

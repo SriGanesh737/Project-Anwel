@@ -1,0 +1,16 @@
+ID,name,location,health_status,hungry_percentage,breed,food_type
+AL1,Alligator,A-2,Good,60,American,meat
+SL2,Sloth,B-15,Skin_problem,12,Pygmy,plants
+GO3,Gorilla,B-14,fever,30,Western Lowland,Shurbs
+ZE4,Zebra,B-13,Good,55,Grevys,grass
+IG5,Iguana,B-16,Injured,39,Cuban Rock,Shurbs
+CA6,Camel,B-10,Ear problem,25,Kohi,grass
+EL7,Elephant,B-18,Good,23,Savannah,plants
+BE8,Bear,A-3,Good,78,Sun,meat
+BE9,Bear,A-6,Injured,25,Sun,meat
+CH10,Cheetah,A-10,Good,10,Acinonyx,meat
+HY11,Hyena,A-7,Injured,33,Striped,meat
+TI12,Tiger,A-9,Good,10,Bengal Tiger,meat
+LI13,Lion,A-4,Injured,40,Panthera Leo,meat
+GO14,Gorilla,B-5,Heart Problem,14,Western Lowland,Shurbs
+PA15,Panda,B-17,Good,5,Red panda,Bamboo

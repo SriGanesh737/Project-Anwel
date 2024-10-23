@@ -1,0 +1,5 @@
+ID,name,location,health_status,hungry_percentage,breed,food_type
+AL1,Alligator,A-34,bad,10,American,meat
+SL2,Sloth,B-15,Skin_problem,20,Pygmy,plants
+GO3,Gorilla,B-14,fever,30,Western Lowland,grass
+ZE4,Zebra,B-13,Good,40,grev,grass
